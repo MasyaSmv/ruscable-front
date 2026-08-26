@@ -15,6 +15,14 @@ updates:
     commit-message:
       prefix: chore
       include: scope
+    ignore:
+      # TypeScript 7 пока не поддерживается typescript-eslint:
+      # "Error: typescript-eslint does not support TS 7.0".
+      # Обновиться физически нельзя, а dependabot иначе будет каждую неделю
+      # пересоздавать заведомо красный PR. Снять это правило, когда
+      # typescript-eslint объявит поддержку TS 7.
+      - dependency-name: typescript
+        update-types: [version-update:semver-major]
 
   - package-ecosystem: github-actions
     directory: "/"
