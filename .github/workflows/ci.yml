@@ -35,7 +35,10 @@ jobs:
           name: unit tests
           path: test-results/unit-junit.xml
           reporter: java-junit
+          # Источник правды о падении - сам прогон тестов выше, а не наличие xml.
+          # Без этого отсутствующий отчёт роняет зелёный прогон.
           fail-on-error: false
+          fail-on-empty: false
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -65,7 +68,10 @@ jobs:
           name: e2e tests
           path: test-results/e2e-junit.xml
           reporter: java-junit
+          # Источник правды о падении - сам прогон тестов выше, а не наличие xml.
+          # Без этого отсутствующий отчёт роняет зелёный прогон.
           fail-on-error: false
+          fail-on-empty: false
       # Отчёт грузится всегда, а не только при падении: смотреть, что прошло,
       # бывает нужнее, чем разбирать падение.
       - uses: actions/upload-artifact@v7
