@@ -23,6 +23,11 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.3.5
+      # Node ставится явно и здесь: vitest поднимает воркеры на Node из PATH,
+      # а не на bun. Без этого версия рантайма в тестах зависит от образа раннера.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
       - run: bun install --frozen-lockfile
       - run: bun run typecheck
       - run: bun run lint
@@ -57,7 +62,7 @@ jobs:
           bun-version: 1.3.5
       - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
       - run: bun install --frozen-lockfile
       - run: bunx playwright install --with-deps chromium
       - run: bun run e2e
