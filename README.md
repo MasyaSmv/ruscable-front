@@ -44,6 +44,21 @@ e2e/           Playwright-тесты
 
 Зависимости направлены только вниз: `app → widgets → features → entities → shared`.
 
+## Docker
+
+Production-образ (multi-stage, standalone-сборка Next, запуск от non-root):
+
+```bash
+docker compose up --build
+```
+
+Для повседневной разработки Docker не нужен — используй `bun run dev`.
+
+## Ветвление
+
+Одна долгоживущая ветка `main`, каждая задача — отдельная короткая ветка
+(`feat/*`, `fix/*`, `refactor/*`, `chore/*`) и PR. Прямые коммиты в `main` запрещены.
+
 ## Переменные окружения
 
 Скопируй `.env.example` в `.env.local` и заполни значения.
