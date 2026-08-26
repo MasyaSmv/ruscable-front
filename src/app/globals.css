@@ -46,33 +46,64 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Токены дизайн-системы портала (макет D, docs/design/variant-d-hybrid.html).
+     Использовать их, а не хардкодить hex по месту. */
+  --color-brand: var(--brand);
+  --color-brand-bright: var(--brand-bright);
+  --color-brand-dark: var(--brand-dark);
+  --color-surface: var(--surface);
+  --color-panel: var(--panel);
+  --color-line-soft: var(--line-soft);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  /* Оранжевый - только маркер рубрик «Плюс» и премиум-материалов, не второй акцент. */
+  --color-rubric: var(--rubric);
+  /* Зелёный и красный несут смысл (рост и падение котировок), а не украшают. */
+  --color-quote-up: var(--quote-up);
+  --color-quote-down: var(--quote-down);
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  /* Палитра портала. Один акцент - синий бренда; остальные цвета либо нейтральные,
+     либо несут смысл. Источник: docs/design/variant-d-hybrid.html */
+  --brand: #0a58ca;
+  --brand-bright: #1d63ff;
+  --brand-dark: #06336f;
+  --rubric: #e8590c;
+  --quote-up: #157347;
+  --quote-down: #c92a2a;
+  --surface: #f2f4f7;
+  --panel: #ffffff;
+  --line-soft: #eef1f5;
+  --ink-soft: #55606d;
+  --ink-faint: #8d97a3;
+
+  --background: #f2f4f7;
+  --foreground: #14181d;
+  --card: #ffffff;
+  --card-foreground: #14181d;
+  --popover: #ffffff;
+  --popover-foreground: #14181d;
+  --primary: #0a58ca;
+  --primary-foreground: #ffffff;
+  --secondary: #eef1f5;
+  --secondary-foreground: #14181d;
+  --muted: #eef1f5;
+  --muted-foreground: #55606d;
+  --accent: #eef1f5;
+  --accent-foreground: #0a58ca;
+  --destructive: #c92a2a;
+  --border: #dfe4ea;
+  --input: #dfe4ea;
+  --ring: #1d63ff;
+  --chart-1: #0a58ca;
+  --chart-2: #1d63ff;
+  --chart-3: #157347;
+  --chart-4: #e8590c;
+  --chart-5: #8d97a3;
+  /* 12px: крупные блоки вроде плашки-героя; панели получают radius-sm (~7px). */
+  --radius: 0.75rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -83,30 +114,46 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* ВНИМАНИЕ: тёмная тема НЕ спроектирована. Значения ниже - рабочая заглушка,
+   чтобы компоненты не ломались и разработка не блокировалась. Подбор палитры,
+   проверка контраста и поведение бренд-синего на тёмном фоне - отдельная задача,
+   см. docs/backlog.md, пункт «Тёмная тема». Не считать это финальным видом. */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --brand: #4d8bff;
+  --brand-bright: #6c9dff;
+  --brand-dark: #0b1a30;
+  --rubric: #ff8442;
+  --quote-up: #3fbd7f;
+  --quote-down: #ff6b6b;
+  --surface: #0d1117;
+  --panel: #161b22;
+  --line-soft: #21262d;
+  --ink-soft: #9aa5b1;
+  --ink-faint: #6e7781;
+
+  --background: #0d1117;
+  --foreground: #e6edf3;
+  --card: #161b22;
+  --card-foreground: #e6edf3;
+  --popover: #161b22;
+  --popover-foreground: #e6edf3;
+  --primary: #4d8bff;
+  --primary-foreground: #08111f;
+  --secondary: #21262d;
+  --secondary-foreground: #e6edf3;
+  --muted: #21262d;
+  --muted-foreground: #9aa5b1;
+  --accent: #21262d;
+  --accent-foreground: #6c9dff;
+  --destructive: #ff6b6b;
+  --border: #2a313a;
+  --input: #2a313a;
+  --ring: #4d8bff;
+  --chart-1: #4d8bff;
+  --chart-2: #6c9dff;
+  --chart-3: #3fbd7f;
+  --chart-4: #ff8442;
+  --chart-5: #6e7781;
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
