@@ -14,6 +14,9 @@ jobs:
     steps:
       # Копит conventional-коммиты в release-PR с готовым CHANGELOG.
       # Мерж этого PR создаёт тег и GitHub Release.
+      # Настройки версионирования - в release-please-config.json:
+      # проект намеренно остаётся в 0.x, пока портал не заработает.
       - uses: googleapis/release-please-action@v5
         with:
-          release-type: node
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
