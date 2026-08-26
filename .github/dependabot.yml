@@ -1,6 +1,8 @@
 version: 2
 updates:
-  - package-ecosystem: npm
+  # Именно bun, а не npm: с экосистемой npm dependabot правит package.json,
+  # но не обновляет bun.lock, и CI падает на `bun install --frozen-lockfile`.
+  - package-ecosystem: bun
     directory: "/"
     schedule:
       interval: weekly
