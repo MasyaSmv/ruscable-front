@@ -74,5 +74,10 @@
     "*.{json,css,md,mjs}": [
       "prettier --write"
     ]
+  },
+  "overrides": {
+    "@commitlint/config-validator": {
+      "ajv": "^8.17.1"
+    }
   }
 }

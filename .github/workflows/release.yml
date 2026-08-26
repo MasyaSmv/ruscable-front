@@ -16,7 +16,18 @@ jobs:
       # Мерж этого PR создаёт тег и GitHub Release.
       # Настройки версионирования - в release-please-config.json:
       # проект намеренно остаётся в 0.x, пока портал не заработает.
+      #
+      # Токен намеренно не GITHUB_TOKEN: GitHub не запускает workflow на события,
+      # созданные этим токеном (защита от рекурсии). Из-за этого на release-PR
+      # не появлялись обязательные проверки, и смержить его можно было только
+      # обходом защиты ветки через --admin.
+      #
+      # С RELEASE_PLEASE_TOKEN (fine-grained PAT: Contents write, Pull requests write)
+      # release-PR создаётся от имени владельца, CI на нём отрабатывает штатно.
+      # Пока секрет не задан, используется GITHUB_TOKEN - тогда релизы работают,
+      # но их PR по-прежнему требуют ручного обхода.
       - uses: googleapis/release-please-action@v5
         with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
