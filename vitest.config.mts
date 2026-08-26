@@ -13,9 +13,14 @@ export default defineConfig({
     setupFiles: ["./vitest.setup.ts"],
     include: ["src/**/*.test.{ts,tsx}"],
     exclude: ["node_modules", ".next", "e2e"],
+    // JUnit нужен, чтобы падения показывались аннотациями прямо в PR,
+    // а не только в раскрытом логе CI.
+    reporters: process.env.CI ? ["default", "junit"] : ["default"],
+    outputFile: { junit: "test-results/unit-junit.xml" },
     coverage: {
       provider: "v8",
-      reporter: ["text", "html"],
+      reporter: ["text", "html", "lcov"],
+      reportsDirectory: "coverage",
       include: ["src/**/*.{ts,tsx}"],
       exclude: ["src/**/*.test.{ts,tsx}", "src/components/ui/**", "src/app/**/layout.tsx"],
     },
