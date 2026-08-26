@@ -23,6 +23,11 @@ updates:
       # typescript-eslint объявит поддержку TS 7.
       - dependency-name: typescript
         update-types: [version-update:semver-major]
+      # ESLint 10 несовместим с eslint-plugin-react, который тянет eslint-config-next:
+      # "TypeError: Error while loading rule 'react/display-name'".
+      # Снять, когда eslint-config-next заявит поддержку ESLint 10.
+      - dependency-name: eslint
+        update-types: [version-update:semver-major]
 
   - package-ecosystem: github-actions
     directory: "/"
