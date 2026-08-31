@@ -40,7 +40,9 @@ const eslintConfig = defineConfig([
       "@typescript-eslint/no-explicit-any": "off",
     },
   },
-  globalIgnores([".next/**", "out/**", "build/**", "coverage/**", "next-env.d.ts"]),
+  // docs/ хранит заметки и сохранённые страницы действующего сайта вместе с их скриптами.
+  // Это чужой код и справочный материал, а не код проекта: линтовать его бессмысленно.
+  globalIgnores([".next/**", "out/**", "build/**", "coverage/**", "next-env.d.ts", "docs/**"]),
 ]);
 
 export default eslintConfig;

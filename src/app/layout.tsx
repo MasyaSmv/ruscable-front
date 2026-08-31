@@ -1,19 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 
+import { themeInitializationScript } from "@/features/theme-toggle/model/theme";
 import { siteConfig } from "@/shared/config/site";
+import { getRubrics } from "@/entities/rubric/api/get-rubrics";
+import { MobileNavigation } from "@/widgets/mobile-navigation/ui/mobile-navigation";
+import { SiteFooter } from "@/widgets/site-footer/ui/site-footer";
+import { SiteHeader } from "@/widgets/site-header/ui/site-header";
+import { SiteNav } from "@/widgets/site-nav/ui/site-nav";
+import { TopLinks } from "@/widgets/top-links/ui/top-links";
 
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin", "cyrillic"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -30,10 +27,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+/** Корневой серверный каркас, общий для всех будущих маршрутов портала. */
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const rubrics = await getRubrics();
+
   return (
-    <html lang="ru" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">{children}</body>
+    <html lang="ru" className="h-full antialiased" suppressHydrationWarning>
+      <body className="flex min-h-full flex-col pb-16 lg:pb-0">
+        <Script id="color-theme" strategy="beforeInteractive">
+          {themeInitializationScript}
+        </Script>
+        <TopLinks />
+        <SiteHeader />
+        <SiteNav />
+        {children}
+        <SiteFooter />
+        <MobileNavigation rubrics={rubrics} />
+      </body>
     </html>
   );
 }
